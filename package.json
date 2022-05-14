@@ -1,0 +1,41 @@
+{
+  "name": "iusso",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "sst test",
+    "start": "sst start",
+    "app": "cd app && yarn dev",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove"
+  },
+  "eslintConfig": {
+    "extends": [
+      "serverless-stack"
+    ]
+  },
+  "devDependencies": {
+    "@serverless-stack/cli": "0.69.7",
+    "@serverless-stack/resources": "0.69.7",
+    "@tsconfig/node14": "^1.0.1",
+    "@types/aws-lambda": "^8.10.70",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "<15.0.0",
+    "@types/ramda": "^0.28.12",
+    "@types/uuid": "^8.3.4",
+    "aws-cdk-lib": "2.15.0",
+    "typescript": "4.4.4"
+  },
+  "dependencies": {
+    "ajv": "^8.11.0",
+    "aws-sdk": "^2.1131.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.3",
+    "ramda": "^0.28.0",
+    "uuid": "^8.3.2"
+  }
+}
