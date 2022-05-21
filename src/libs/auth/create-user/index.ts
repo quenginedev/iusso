@@ -1,9 +1,10 @@
-import { validateEmail, validatePhoneNumber } from "./../../utils/validators";
+import { validateEmail, validatePhoneNumber } from "../../../utils/validators";
 import { hash } from "bcryptjs";
-import { prop } from "ramda";
-import AuthModel from "../../db/models/auth.model";
-import connectToDatabase from "../../db";
+import { dissoc, prop } from "ramda";
+import AuthModel from "../../../db/models/auth.model";
+import connectToDatabase from "../../../db";
 import { v4 as uuid } from "uuid";
+import { sendUserCreatedEvent } from "./send-user-create-events";
 
 export const createUser: CreateUser = async ({ userPayload }) => {
   const { email, phoneNumber, password } = userPayload;
@@ -15,13 +16,14 @@ export const createUser: CreateUser = async ({ userPayload }) => {
   const verificationCode = uuid();
   const passwordHash = await hash(password, 2);
   const userDetails = {
-    ...userPayload,
+    ...dissoc("verified", userPayload),
     password: passwordHash,
     verificationCode,
   };
 
   await connectToDatabase();
   const newUser = await AuthModel.create(userDetails);
+  sendUserCreatedEvent(userDetails);
   return {
     _id: prop("_id", newUser),
   };

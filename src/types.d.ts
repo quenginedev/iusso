@@ -2,7 +2,7 @@ type ObjectId = import("mongodb").ObjectId;
 type MongoDocument = import("mongodb").Document;
 type ValidateFunction = import("ajv").ValidateFunction;
 type APIGatewayProxyResultV2 = import("aws-lambda").APIGatewayProxyResultV2;
-type Document = import("mongoose").Document
+type Document = import("mongoose").Document;
 
 interface Document {
   _id: import("mongodb").ObjectId;
@@ -89,12 +89,35 @@ interface AuthLoginCredentials {
 interface AuthCreatePayload extends AuthLoginCredentials {
   name: string;
   phoneNumber: string;
-	verificationCode?: string
+  verificationCode?: string;
+  verified?: boolean;
 }
 
 type CreateUser = (params: {
   userPayload: AuthCreatePayload;
   ip: string;
 }) => Promise<{
-	_id: ObjectId
+  _id: ObjectId;
 }>;
+
+type SendMail = (params: {
+  template: string;
+  toAddress: string;
+  fromAddress: string;
+  subject: string;
+  data: any;
+}) => Promise<boolean>;
+
+type SendEventToS3 = ({
+  Body: any,
+}) => Promise<boolean>;
+
+type EmailIntegration = (EmailConfiguration: {
+  toAddresses: string[];
+  subject: string;
+  template: string;
+  fromAddress: string;
+  data: any;
+}) => Promise<void>;
+
+type IntegrationsMap = { [type: string]: (params?: any) => void };

@@ -45,3 +45,7 @@ export const signup: APIGatewayProxyHandlerV2 = async (event) => {
     });
   }
 };
+
+export const verifyUser = () => {
+	//TODO 
+};
