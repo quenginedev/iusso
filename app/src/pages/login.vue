@@ -1,13 +1,21 @@
 <script setup>
 import { reactive, ref } from "vue";
 import AppButton from "../components/app-button.vue";
+import AppAlert from "../components/app-alert.vue";
+
 import AppInput from "../components/app-input.vue";
 import { AtSymbolIcon, LockClosedIcon, EyeIcon, EyeOffIcon } from "@heroicons/vue/solid";
+import useAuth from "../composables/use-auth";
+
+const { errorMsg, loading, loginUser } = useAuth();
 const loginDetails = reactive({
   email: "",
   password: "",
 });
 const showPassword = ref(false);
+const handleLoginClick = () => {
+  loginUser(loginDetails);
+};
 </script>
 <template>
   <section class="w-full p-10">
@@ -23,6 +31,9 @@ const showPassword = ref(false);
           <h2 class="font-bold text-3xl">Login</h2>
           <p class="text-gray-400 text-sm">It's nice seeing you back here again.</p>
         </div>
+        <app-alert v-if="errorMsg" icon type="error">
+          {{ errorMsg }}
+        </app-alert>
         <app-input v-model="loginDetails.email" placeholder="Email" type="email">
           <template #prepend>
             <at-symbol-icon class="h-5 w-5" />
@@ -48,7 +59,9 @@ const showPassword = ref(false);
             >Forgot Password?</router-link
           >
         </div>
-        <app-button color="green" solid>Login</app-button>
+        <app-button :loading="loading" @click="handleLoginClick" color="green" solid
+          >Login</app-button
+        >
       </div>
     </div>
   </section>

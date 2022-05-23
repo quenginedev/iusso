@@ -8,7 +8,6 @@ const product = reactive({
 });
 </script>
 <template>
-  {{ product }}
   <div class="py-3 flex flex-col gap-5">
     <h3 class="text-lg font-bold">Options</h3>
     <div class="flex flex-row justify-between items-center">

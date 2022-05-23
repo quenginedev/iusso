@@ -1846,6 +1846,15 @@
     graphql "^15.5.1"
     zip-local "^0.3.4"
 
+"@serverless-stack/static-site-env@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@serverless-stack/static-site-env/-/static-site-env-1.1.2.tgz#0ece775191af07f83883fd9277f760e25abe24a7"
+  integrity sha512-b/GxmqNoNAqsfperUWD2X87Nc151dSab3TlZn2fFSO/BpjM4IQLsdA4ARsge98/9wasvkjGRs18Ew66ZarCasw==
+  dependencies:
+    cross-spawn "^7.0.3"
+    fs-extra "^9.0.1"
+    minimist "^1.2.5"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"

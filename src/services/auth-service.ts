@@ -5,7 +5,6 @@ import { createUser } from "../libs/auth/create-user";
 import getEventIp from "./../utils/get-event-ip";
 import { verifyUserAccount } from "../libs/auth/verify-user";
 import { loginUser } from "../libs/auth/login";
-import { MongooseError } from "mongoose";
 
 export const login: APIGatewayProxyHandlerV2 = async (event) => {
   try {
