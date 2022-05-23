@@ -4,13 +4,16 @@ import { join, keys, pipe, prop } from "ramda";
 import { createUser } from "../libs/auth/create-user";
 import getEventIp from "./../utils/get-event-ip";
 import { verifyUserAccount } from "../libs/auth/verify-user";
+import { loginUser } from "../libs/auth/login";
+import { MongooseError } from "mongoose";
 
 export const login: APIGatewayProxyHandlerV2 = async (event) => {
   try {
     const body = event.body as string;
     const credentials = JSON.parse(body);
-
-    return handleResponse({ body });
+    const ip = getEventIp(event) as string;
+    const userLoginResult = await loginUser({ credentials, ip });
+    return handleResponse({ body: userLoginResult });
   } catch ({ message }) {
     return handleResponse({
       statusCode: 400,

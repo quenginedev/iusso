@@ -7,7 +7,8 @@ export const createAuthLoginResponse = (
   ip: string,
 ) => {
   const { auth: { secret } } = config;
-  const expiresIn = "24h";
+  const expires = 1;
+  const expiresIn = `${expires} days`;
 
   const tokenPayload = pipe(
     dissoc("password"),
@@ -24,7 +25,7 @@ export const createAuthLoginResponse = (
         ["email", "name", "phoneNumber"],
         tokenPayload,
       ),
-      expiresIn,
+      expires,
     },
   };
 };

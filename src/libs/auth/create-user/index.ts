@@ -4,7 +4,7 @@ import { dissoc, prop } from "ramda";
 import AuthModel from "../../../db/models/auth.model";
 import connectToDatabase from "../../../db";
 import { v4 as uuid } from "uuid";
-import { sendUserCreatedEvent } from "./send-user-create-events";
+import { sendUserCreatedEvent } from "../utils/send-user-create-events";
 
 export const createUser: CreateUser = async ({ userPayload }) => {
   const { email, phoneNumber, password } = userPayload;
