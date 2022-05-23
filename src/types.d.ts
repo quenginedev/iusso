@@ -95,7 +95,6 @@ interface AuthCreatePayload extends AuthLoginCredentials {
 
 type CreateUser = (params: {
   userPayload: AuthCreatePayload;
-  ip: string;
 }) => Promise<{
   _id: ObjectId;
 }>;
@@ -121,3 +120,19 @@ type EmailIntegration = (EmailConfiguration: {
 }) => Promise<void>;
 
 type IntegrationsMap = { [type: string]: (params?: any) => void };
+
+type VerifyUser = (userVerificationConfig: {
+  verificationCode: string;
+  _id: string;
+  ip: string;
+}) => Promise<UserLoginResult>;
+
+type AuthMetaData = Omit<
+  AuthCreatePayload,
+  "password" | "verificationCode" | "verified"
+>;
+
+type UserLoginResult = {
+  token: string;
+  meta: AuthMetaData;
+};

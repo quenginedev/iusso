@@ -12,6 +12,7 @@ export default class AuthService extends Stack {
       routes: {
         "post /login": "src/services/auth-service.login",
         "post /signup": "src/services/auth-service.signup",
+        "post /verify": "src/services/auth-service.verify",
       },
       defaultFunctionProps: {
         environment: {
