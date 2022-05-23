@@ -23,7 +23,7 @@ export const createUser: CreateUser = async ({ userPayload }) => {
 
   await connectToDatabase();
   const newUser = await AuthModel.create(userDetails);
-  sendUserCreatedEvent(userDetails);
+  sendUserCreatedEvent(newUser);
   return {
     _id: prop("_id", newUser),
   };

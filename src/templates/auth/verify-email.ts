@@ -16,11 +16,11 @@ export default `
 			Hi {{name}},
 		</h2>
 		<p>
-			We just need to verify your email address before you can access <a href="https://iusso.com/verify/{{verificationCode}}">Iusso</a>.
+			We just need to verify your email address before you can access <a href="https://iusso.com/verify/{{_id}}/{{verificationCode}}">Iusso</a>.
 		</p>
 
 		<p>
-			Verify your email address using this <a href="localhost:3000/verify/{{verificationCode}}" target="_blank">link</a>
+			Verify your email address using this <a href="https://iusso.com/verify/{{_id}}/{{verificationCode}}" target="_blank">link</a>
 		</p>
 
 		<p class="caption">
@@ -75,4 +75,4 @@ export default `
 </style>
 
 </html>
-`
+`;
