@@ -13,7 +13,10 @@ import { ref } from "vue";
 import useDrawer from "~/composables/use-drawer";
 import useScreen from "~/composables/use-screen";
 import useNavigation from "~/composables/use-navigtion";
+import useAuth from "../composables/use-auth";
+import { compose, split, head } from "ramda";
 
+const { authUser, logoutUser } = useAuth();
 const { navigations, activeParentRoute } = useNavigation();
 const drawerRef = ref(null);
 const {
@@ -60,11 +63,11 @@ const { isMobile } = useScreen();
       <div
         class="h-10 w-10 bg-yellow-500 rounded-full text-lg font-bold inline-flex items-center justify-center"
       >
-        E
+        {{ compose(head, split(""))(authUser.name) }}
       </div>
       <div v-show="showOnMiniExpand">
-        <p class="font-bold text-xs">Ernest Hayford</p>
-        <p class="text-xs font-bold text-gray-500">User</p>
+        <p class="font-bold text-xs">{{ authUser.name }}</p>
+        <p class="text-xs font-bold text-gray-500">{{ authUser.email }}</p>
       </div>
     </div>
     <div class="">
@@ -87,7 +90,7 @@ const { isMobile } = useScreen();
     </div>
     <div class="">
       <app-list>
-        <app-list-item>
+        <app-list-item @click="logoutUser">
           <logout-icon slot="icon" class="w-6 h-6" />
           <p v-show="showOnMiniExpand">Logout</p>
         </app-list-item>

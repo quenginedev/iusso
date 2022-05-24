@@ -1,5 +1,5 @@
 import useScreen from "./use-screen";
-import { ref, watchEffect, computed } from "vue";
+import { computed, ref, watchEffect } from "vue";
 
 const fullWidth = 280;
 const miniWidth = 65;
@@ -27,42 +27,18 @@ const toggleDrawerLeftPosition = () => {
     drawerLeftPosition.value = drawerLeftPosition.value < 0
       ? 0
       : -(drawerWidth.value);
-    console.log("left", drawerLeftPosition.value);
     return;
   }
 };
 watchEffect(() => {
-  // console.log('contentStart', contentStart.value);
-  // console.log('drawerLeftPosition', drawerLeftPosition.value);
-  // console.log('isMini', isMini.value);
-  
   if (!isMobile.value) {
     if (drawerLeftPosition.value !== 0) drawerLeftPosition.value = 0;
   }
-  if(isMobile.value){
-    drawerWidth.value = fullWidth
-    drawerLeftPosition.value = -fullWidth
+  if (isMobile.value) {
+    drawerWidth.value = fullWidth;
+    drawerLeftPosition.value = -fullWidth;
   }
 });
-// const drawerMiniWidth = ref(fullWidth);
-// const width = computed(() => mini.value ? miniWidth : fullWidth);
-// const showOnMini = computed(() => (drawerMiniWidth.value === fullWidth && mini.value) || !mini.value );
-// const toggleDrawerMini = () => {
-//   if(!isMobile.value && mini.value){
-//     drawerMiniWidth.value = drawerMiniWidth.value === fullWidth
-//     ? miniWidth
-//     : fullWidth;
-//     console.log(drawerMiniWidth.value);
-
-//     return
-//   }
-//   drawerMiniWidth.value = null
-// }
-
-// const isDrawerOpen = ref(false)
-// watchEffect(()=>{
-//   console.log('isMobile', isMobile.value)
-// })
 const useDrawer = () => {
   return {
     drawerWidth,

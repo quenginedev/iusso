@@ -1,5 +1,5 @@
 <script setup>
-const { color, active, fab, icon, solid } = defineProps({
+const { color, active, fab, icon, solid, loading } = defineProps({
   color: {
     type: String,
     default: "gray",
@@ -8,6 +8,7 @@ const { color, active, fab, icon, solid } = defineProps({
   fab: Boolean,
   icon: Boolean,
   solid: Boolean,
+  loading: { type: Boolean, default: false },
 });
 </script>
 <template>
@@ -23,7 +24,8 @@ const { color, active, fab, icon, solid } = defineProps({
         [`bg-${color}-500 text-white hover:bg-${color}-700 hover:bg-opacity-100`]: solid,
       }"
     >
-      <slot />
+      <span v-if="loading">Loading...</span>
+      <slot v-else />
     </div>
   </button>
 </template>
