@@ -9,6 +9,7 @@ import { useRouter } from "vue-router";
 const authUserStr = Cookie.get("meta");
 const authUser = ref<AuthMeta | null>(authUserStr && JSON.parse(authUserStr));
 const isAuthenticated = computed(() => !!authUser.value);
+
 const useAuth = () => {
   const { replace } = useRouter();
   const errorMsg = ref("");
@@ -34,10 +35,10 @@ const useAuth = () => {
   };
 
   const logoutUser = async () => {
-		Cookie.remove('token')
-		Cookie.remove('meta')
-		authUser.value = null;
-	};
+    Cookie.remove("token");
+    Cookie.remove("meta");
+    authUser.value = null;
+  };
 
   return {
     authUser,
