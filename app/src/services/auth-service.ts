@@ -9,7 +9,6 @@ const login = async (credentials: LoginCredentials) => {
     const { data } = await authService.post("/login", credentials);
     return { data };
   } catch (error: any) {
-    console.log(error);
     return {
       error: {
         message: pathOr(prop("message", error), ["response", "data"], error),

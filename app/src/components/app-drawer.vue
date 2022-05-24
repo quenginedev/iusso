@@ -10,11 +10,12 @@ import AppListItem from "./app-list-item.vue";
 import AppList from "./app-list.vue";
 
 import { ref } from "vue";
-import useDrawer from "~/composables/use-drawer";
-import useScreen from "~/composables/use-screen";
-import useNavigation from "~/composables/use-navigtion";
+import useDrawer from "../composables/use-drawer";
+import useScreen from "../composables/use-screen";
+import useNavigation from "../composables/use-navigtion";
 import useAuth from "../composables/use-auth";
 import { compose, split, head } from "ramda";
+import { onClickOutside } from "@vueuse/core";
 
 const { authUser, logoutUser } = useAuth();
 const { navigations, activeParentRoute } = useNavigation();
@@ -28,6 +29,9 @@ const {
   toggleDrawerLeftPosition,
 } = useDrawer();
 const { isMobile } = useScreen();
+onClickOutside(drawerRef, () => {
+  if (isMobile.value && drawerLeftPosition.value === 0) toggleDrawerLeftPosition();
+});
 </script>
 <template>
   <div
