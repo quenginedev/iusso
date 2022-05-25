@@ -1,22 +1,20 @@
 <script setup>
-import { useFocusWithin } from "@vueuse/core";
-import { path } from "ramda";
-import { ref, toRefs, onMounted } from "vue";
+import { useFocusWithin, useVModels } from "@vueuse/core";
+import { ref, onMounted } from "vue";
 
 const props = defineProps({
   modelValue: String,
   placeholder: String,
   type: { type: String },
 });
-const { modelValue, placeholder, type } = toRefs(props);
+
 const emit = defineEmits(["update:modelValue"]);
+const { modelValue, placeholder, type } = useVModels(props, emit);
+
 const input = ref();
 const inputOuter = ref();
 const { focused } = useFocusWithin(input);
-const handleUpdate = (event) => {
-  const value = path(["target", "value"], event);
-  emit("update:modelValue", value);
-};
+const asdsd = 'asd'
 onMounted(() => {
   const inputOuterEl = inputOuter.value;
   const inputEl = input.value;
@@ -37,8 +35,7 @@ onMounted(() => {
     <input
       ref="input"
       class="flex-grow outline-none"
-      :value="modelValue"
-      @change="handleUpdate"
+      v-model="modelValue"
       :placeholder="placeholder"
       :type="type"
     />

@@ -3,42 +3,66 @@ import { reactive, ref } from "vue";
 import AppButton from "../components/app-button.vue";
 import AppAlert from "../components/app-alert.vue";
 import AppInput from "../components/app-input.vue";
-import { AtSymbolIcon, LockClosedIcon, EyeIcon, EyeOffIcon } from "@heroicons/vue/solid";
+import {
+  AtSymbolIcon,
+  LockClosedIcon,
+  EyeIcon,
+  EyeOffIcon,
+  PhoneIcon,
+  UserIcon,
+} from "@heroicons/vue/solid";
 import useAuth from "../composables/use-auth";
 
-const { errorMsg, loading, loginUser } = useAuth();
 const loginDetails = reactive({
-  email: "",
-  password: "",
+  name: "Ernest Hayford",
+  email: "quenginedev@gmail.com",
+  password: "Password123",
+  phoneNumber: "23323456789",
 });
 
+const { signupUser, errorMsg, loading } = useAuth();
+
 const showPassword = ref(false);
-const handleLoginClick = () => {
-  loginUser(loginDetails);
+const handleSignupClick = () => {
+  signupUser(loginDetails);
 };
 </script>
 <template>
   <section class="w-full p-10">
     <div class="text-right">
       <span
-        >Don’t have an account?
-        <router-link :to="{ name: 'signup' }" class="text-green-500"
-          >Get started</router-link
+        >Already have an account?
+        <router-link :to="{ name: 'login' }" class="text-green-500"
+          >Login</router-link
         ></span
       >
     </div>
     <div class="flex flex-row h-full justify-center items-center">
       <div class="flex flex-col gap-5 w-full max-w-md">
         <div class="">
-          <h2 class="font-bold text-3xl">Login</h2>
-          <p class="text-gray-400 text-sm">It's nice seeing you back here again.</p>
+          <h2 class="font-bold text-3xl">Sign Up</h2>
+          <p class="text-gray-400 text-sm">Let's get you started with a new account.</p>
         </div>
         <app-alert v-if="errorMsg" icon type="error">
           {{ errorMsg }}
         </app-alert>
+        <app-input v-model="loginDetails.name" placeholder="Name" type="text">
+          <template #prepend>
+            <user-icon class="h-5 w-5" />
+          </template>
+        </app-input>
         <app-input v-model="loginDetails.email" placeholder="Email" type="email">
           <template #prepend>
             <at-symbol-icon class="h-5 w-5" />
+          </template>
+        </app-input>
+        <app-input
+          v-model="loginDetails.phoneNumber"
+          placeholder="Phone number"
+          type="tel"
+        >
+          <template #prepend>
+            <phone-icon class="h-5 w-5" />
           </template>
         </app-input>
         <app-input
@@ -56,13 +80,14 @@ const handleLoginClick = () => {
             </div>
           </template>
         </app-input>
+
         <div class="text-right">
-          <router-link to="#" class="font-semibold text-green-500"
-            >Forgot Password?</router-link
+          <router-link :to="{ name: 'login' }" class="font-semibold text-green-500"
+            >Login instead?</router-link
           >
         </div>
-        <app-button :loading="loading" @click="handleLoginClick" color="green" solid
-          >Login</app-button
+        <app-button :loading="loading" @click="handleSignupClick" color="green" solid
+          >Continue</app-button
         >
       </div>
     </div>

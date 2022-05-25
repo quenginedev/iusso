@@ -9,4 +9,13 @@
   font-weight: 400;
   @apply transition-all;
 }
+*::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+*::-webkit-scrollbar-track {
+  @apply rounded-lg bg-white;
+}
+*::-webkit-scrollbar-thumb {
+  @apply bg-green-500 rounded-md border-2 border-green-100 border-solid;
+}
 </style>

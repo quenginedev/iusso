@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { handleResponse } from "./../utils/handle-response";
-import { join, keys, pipe, prop } from "ramda";
+import { join, keys, pick, pipe, prop } from "ramda";
 import { createUser } from "../libs/auth/create-user";
 import getEventIp from "./../utils/get-event-ip";
 import { verifyUserAccount } from "../libs/auth/verify-user";
@@ -29,7 +29,6 @@ export const signup: APIGatewayProxyHandlerV2 = async (event) => {
     const newUserResponse = await createUser({ userPayload });
     return handleResponse({ body: newUserResponse });
   } catch (error: any) {
-    console.log(error);
     const code = prop("code")(error);
     if (code && code === 11000) {
       return handleResponse({
@@ -41,10 +40,10 @@ export const signup: APIGatewayProxyHandlerV2 = async (event) => {
         },
       });
     }
-
+    console.error(error.message);
     return handleResponse({
-      statusCode: 500,
-      body: error,
+      statusCode: 400,
+      body: prop("message", error),
     });
   }
 };

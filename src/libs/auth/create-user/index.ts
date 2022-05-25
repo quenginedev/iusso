@@ -1,6 +1,6 @@
 import { validateEmail, validatePhoneNumber } from "../../../utils/validators";
 import { hash } from "bcryptjs";
-import { dissoc, prop } from "ramda";
+import { dissoc, pickAll, prop } from "ramda";
 import AuthModel from "../../../db/models/auth.model";
 import connectToDatabase from "../../../db";
 import { v4 as uuid } from "uuid";
@@ -24,7 +24,5 @@ export const createUser: CreateUser = async ({ userPayload }) => {
   await connectToDatabase();
   const newUser = await AuthModel.create(userDetails);
   sendUserCreatedEvent(newUser);
-  return {
-    _id: prop("_id", newUser),
-  };
+  return pickAll(["email"], userDetails);
 };
